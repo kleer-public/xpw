@@ -23,6 +23,7 @@ tmp
 reports
 :memory
 *.sublime-*
+.rvmrc
 
 # YARD artifacts
 .yardoc
