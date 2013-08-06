@@ -13,7 +13,8 @@ class User
   validates_format_of   :email,    :with => :email_address
 
   def password= (password)
-    self.crypted_password = ::BCrypt::Password.create(password) unless password.nil?	
+    self.crypted_password = ::BCrypt::Password.create(password) if 
+      password.match password_regex
   end
 
   def self.authenticate(email, password)
@@ -26,4 +27,8 @@ class User
     ::BCrypt::Password.new(crypted_password) == password
   end
 
+  private
+  def password_regex
+    "(^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z\s\S]{8,}$)"
+  end
 end

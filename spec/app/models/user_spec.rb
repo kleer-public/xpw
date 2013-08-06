@@ -20,37 +20,61 @@ describe User do
 
 	  it 'should be false when name is blank' do
 	  	user.email = 'john.doe@someplace.com'
-	  	user.password = 'a_secure_passWord!'
+	  	user.password = 'validPassword1'
 	  	user.valid?.should be_false
 	  end
-
 
 	  it 'should be false when email is not valid' do
 	  	user.name = 'John Doe'
 	  	user.email = 'john'
-	  	user.password = 'a_secure_passWord!'
-	  	user.valid?.should be_false
-	  end
-
-	  it 'should be false when password is blank' do
-	  	user.name = 'John Doe'
-	  	user.email = 'john.doe@someplace.com'
+	  	user.password = 'validPassword1'
 	  	user.valid?.should be_false
 	  end
 
 	  it 'should be true when all field are valid' do
 	  	user.name = 'John Doe'
 	  	user.email = 'john.doe@someplace.com'
-	  	user.password = 'a_secure_passWord!'
+	  	user.password = 'validPassword1'
 	  	user.valid?.should be_true
 	  end
 
+	  describe 'password' do
+	  	before :each do
+		  	user.name = 'John Doe'
+		  	user.email = 'john.doe@someplace.com'
+	  	end
+
+	  	it 'should be false when contains no numbers' do
+	  		user.password = 'Password_without_numberS'
+	  		user.valid?.should be_false
+	  	end
+
+	  	it 'should be false when contains no uppercase characters' do
+	  		user.password = 'all_lower_case1'
+	  		user.valid?.should be_false
+	  	end
+
+	  	it 'should be false when contains no lowercase characters' do
+	  		user.password = 'ALL_UPPER_CASE2'
+	  		user.valid?.should be_false
+	  	end
+
+	  	it 'should be false when lenght is less than 8' do
+	  		user.password = 'abcABC1'
+	  		user.valid?.should be_false
+	  	end
+
+	  	it 'should be true when contains upper&lower case, a number, lenght greater than 7' do
+	  		user.password = 'validPassword1'
+	  		user.valid?.should be_true
+	  	end
+	  end
 	end
 
 	describe 'authenticate' do
 
 		before do
-			@password = 'password'
+			@password = 'validPassword1'
 		 	@user = User.new
 		 	@user.email = 'john.doe@someplace.com'
 		 	@user.password = @password
