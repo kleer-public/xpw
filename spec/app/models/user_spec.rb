@@ -20,7 +20,7 @@ describe User do
 
 	  it 'should be false when name is blank' do
 	  	user.email = 'john.doe@someplace.com'
-	  	user.password = 'a_secure_passWord!'
+	  	user.password = 'a_secure_passWord!9'
 	  	user.valid?.should be_false
 	  end
 
@@ -28,7 +28,7 @@ describe User do
 	  it 'should be false when email is not valid' do
 	  	user.name = 'John Doe'
 	  	user.email = 'john'
-	  	user.password = 'a_secure_passWord!'
+	  	user.password = 'a_secure_passWord!9'
 	  	user.valid?.should be_false
 	  end
 
@@ -41,16 +41,58 @@ describe User do
 	  it 'should be true when all field are valid' do
 	  	user.name = 'John Doe'
 	  	user.email = 'john.doe@someplace.com'
-	  	user.password = 'a_secure_passWord!'
+	  	user.password = 'a_secure_passWord!9'
 	  	user.valid?.should be_true
 	  end
+
+		it 'should be false si la clave es sin mayusculas' do
+	  	  user.name = 'John Doe'
+	  	  user.email = 'john.doe@someplace.com'
+	  	  user.password = 'a_secure_password!9'
+	  	  user.valid?.should be_false
+		end
+
+		it 'should be false si la clave es sin numeros' do
+	  	  user.name = 'John Doe'
+	  	  user.email = 'john.doe@someplace.com'
+	  	  user.password = 'a_secure_passWord!'
+	  	  user.valid?.should be_false
+		end
+
+		it 'should be false si la clave es de menos de 8 caracteres' do
+	  	  user.name = 'John Doe'
+	  	  user.email = 'john.doe@someplace.com'
+	  	  user.password = 'shorT6'
+	  	  user.valid?.should be_false
+		end
+
+		it 'should be true si la clave es de justo 8 caracteres' do
+	  	  user.name = 'John Doe'
+	  	  user.email = 'john.doe@someplace.com'
+	  	  user.password = 'noshorT6'
+	  	  user.valid?.should be_true
+		end
+
+		it 'should be false si la clave son todos numeros' do
+	  	  user.name = 'John Doe'
+	  	  user.email = 'john.doe@someplace.com'
+	  	  user.password = '123456789'
+	  	  user.valid?.should be_false
+		end
+
+		it 'should be false si no tiene minusculas' do
+	  	  user.name = 'John Doe'
+	  	  user.email = 'john.doe@someplace.com'
+	  	  user.password = 'ASDEFGTH76389'
+	  	  user.valid?.should be_false
+		end
 
 	end
 
 	describe 'authenticate' do
 
 		before do
-			@password = 'password'
+			@password = 'passworD9'
 		 	@user = User.new
 		 	@user.email = 'john.doe@someplace.com'
 		 	@user.password = @password

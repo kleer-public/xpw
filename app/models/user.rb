@@ -13,7 +13,12 @@ class User
   validates_format_of   :email,    :with => :email_address
 
   def password= (password)
-    self.crypted_password = ::BCrypt::Password.create(password) unless password.nil?	
+    password = nil if password.length < 8
+    password = nil if ! /[0-9]+/.match(password)
+    password = nil if ! /[A-Z]+/.match(password)
+    password = nil if ! /[a-z]+/.match(password)
+    self.crypted_password = ::BCrypt::Password.create(password) unless password.nil?
+    self.crypted_password = nil if password.nil?
   end
 
   def self.authenticate(email, password)
@@ -23,6 +28,7 @@ class User
   end
 
   def has_password?(password)
+    return false if crypted_password.nil?
     ::BCrypt::Password.new(crypted_password) == password
   end
 
