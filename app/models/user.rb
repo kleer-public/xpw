@@ -13,7 +13,9 @@ class User
   validates_format_of   :email,    :with => :email_address
 
   def password= (password)
-    self.crypted_password = ::BCrypt::Password.create(password) unless password.nil?	
+    if compliant(password)
+      self.crypted_password = ::BCrypt::Password.create(password)
+    end 
   end
 
   def self.authenticate(email, password)
@@ -26,4 +28,8 @@ class User
     ::BCrypt::Password.new(crypted_password) == password
   end
 
+  private
+  def compliant(word)
+    !word.nil? && word =~ /((?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8})/
+  end
 end
