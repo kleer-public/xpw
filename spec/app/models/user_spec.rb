@@ -45,6 +45,13 @@ describe User do
 	  	user.valid?.should be_false
 	  end
 
+	  it 'should be false when password does not contain uppercase chars' do
+	  	user.name = 'John Doe'
+	  	user.email = 'john.doe@someplace.com'
+	  	user.password = 'lowercase'
+	  	user.valid?.should be_false
+	  end
+
 	  it 'should be true when all field are valid' do
 	  	user.name = 'John Doe'
 	  	user.email = 'john.doe@someplace.com'
@@ -57,7 +64,7 @@ describe User do
 	describe 'authenticate' do
 
 		before do
-			@password = 'password'
+			@password = 'VALIDpassword'
 		 	@user = User.new
 		 	@user.email = 'john.doe@someplace.com'
 		 	@user.password = @password
