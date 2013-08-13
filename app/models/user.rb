@@ -13,7 +13,7 @@ class User
   validates_format_of   :email,    :with => :email_address
 
   def password= (password)
-    if password[/[[:lower:]]/] and password[/[[:upper:]]/]
+    if password[/[[:lower:]]/] and password[/[[:upper:]]/] and password[/\d/]
       self.crypted_password = ::BCrypt::Password.create(password)
     end
   end
