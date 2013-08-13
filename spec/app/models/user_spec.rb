@@ -41,14 +41,14 @@ describe User do
 	  it 'should be false when password does not contain lowercase chars' do
 	  	user.name = 'John Doe'
 	  	user.email = 'john.doe@someplace.com'
-	  	user.password = 'UPPERCASE'
+	  	user.password = 'UPPERCASE8'
 	  	user.valid?.should be_false
 	  end
 
 	  it 'should be false when password does not contain uppercase chars' do
 	  	user.name = 'John Doe'
 	  	user.email = 'john.doe@someplace.com'
-	  	user.password = 'lowercase'
+	  	user.password = 'lowercase8'
 	  	user.valid?.should be_false
 	  end
 
