@@ -38,10 +38,38 @@ describe User do
 	  	user.valid?.should be_false
 	  end
 
+	  it 'should be false when password does not contain lowercase chars' do
+	  	user.name = 'John Doe'
+	  	user.email = 'john.doe@someplace.com'
+	  	user.password = 'UPPERCASE8'
+	  	user.valid?.should be_false
+	  end
+
+	  it 'should be false when password does not contain uppercase chars' do
+	  	user.name = 'John Doe'
+	  	user.email = 'john.doe@someplace.com'
+	  	user.password = 'lowercase8'
+	  	user.valid?.should be_false
+	  end
+
+	  it 'should be false when password contains no digit' do
+	  	user.name = 'John Doe'
+	  	user.email = 'john.doe@someplace.com'
+	  	user.password = 'WithOutDiGiTs'
+	  	user.valid?.should be_false
+	  end
+
+	  it 'should be false when password length is < 8' do
+	  	user.name = 'John Doe'
+	  	user.email = 'john.doe@someplace.com'
+	  	user.password = 'Sh0rt'
+	  	user.valid?.should be_false
+	  end
+
 	  it 'should be true when all field are valid' do
 	  	user.name = 'John Doe'
 	  	user.email = 'john.doe@someplace.com'
-	  	user.password = 'a_secure_passWord!'
+	  	user.password = 'V4l1dP4ssw0rd'
 	  	user.valid?.should be_true
 	  end
 
@@ -50,7 +78,7 @@ describe User do
 	describe 'authenticate' do
 
 		before do
-			@password = 'password'
+			@password = 'V4l1dP4ssw0rd'
 		 	@user = User.new
 		 	@user.email = 'john.doe@someplace.com'
 		 	@user.password = @password
