@@ -59,6 +59,13 @@ describe User do
 	  	user.valid?.should be_false
 	  end
 
+	  it 'should be false when password length is < 8' do
+	  	user.name = 'John Doe'
+	  	user.email = 'john.doe@someplace.com'
+	  	user.password = 'Sh0rt'
+	  	user.valid?.should be_false
+	  end
+
 	  it 'should be true when all field are valid' do
 	  	user.name = 'John Doe'
 	  	user.email = 'john.doe@someplace.com'
