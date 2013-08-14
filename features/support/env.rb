@@ -18,6 +18,12 @@ SimpleCov.start do
   add_group "Helpers", "app/helpers"
 end
 
+DataMapper::Logger.new($stdout, :all)
+DataMapper.auto_migrate!
+user = User.create(:email => 'offerer@test.com',
+                   :name => 'Offerer', 
+                   :password => "Passw0rd!")
+
 ##
 # You can handle all padrino applications using instead:
 #   Padrino.application

@@ -23,8 +23,6 @@ if ['development', 'test', 'travis'].include?(PADRINO_ENV)
 
   require 'cucumber/rake/task'
 	Cucumber::Rake::Task.new(:cucumber) do |task|
-  	Rake::Task['db:migrate'].invoke
-  	Rake::Task['db:seed'].invoke
   	task.cucumber_opts = ["features"]
 	end
 
@@ -36,7 +34,7 @@ if ['development', 'test', 'travis'].include?(PADRINO_ENV)
 
   require 'rspec/core/rake_task'
   RSpec::Core::RakeTask.new(:spec_report) do |t|
-    t.pattern = "./spec/**/*_spec.rb"
+    t.pattern = './spec/**/*_spec.rb'
     t.rspec_opts = %w(--format RspecJunitFormatter --out reports/spec/spec.xml)
   end
   
